@@ -1,4 +1,3 @@
-
 macro(ei_add_property prop value)
   get_property(previous GLOBAL PROPERTY ${prop})
   if ((NOT previous) OR (previous STREQUAL ""))
@@ -75,7 +74,11 @@ macro(ei_add_test_internal testname testname_with_suffix)
 
   # let the user pass flags.
   if(${ARGC} GREATER 2)
-    target_compile_options(${targetname} PRIVATE ${ARGV2})
+    if(HEXAGON)
+      target_compile_options(${targetname} PRIVATE "SHELL:${ARGV2}")
+    else()
+      target_compile_options(${targetname} PRIVATE ${ARGV2})
+    endif()
   endif()
 
   if(EIGEN_TEST_CUSTOM_CXX_FLAGS)
