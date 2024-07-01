@@ -43,7 +43,7 @@ public:
     Flags = compute_matrix_flags<_Scalar, _Rows, _Cols, _Options, _MaxRows, _MaxCols>::ret,
     Options = _Options,
     InnerStrideAtCompileTime = 1,
-    OuterStrideAtCompileTime = (Options&RowMajor) ? ColsAtCompileTime : RowsAtCompileTime,
+    OuterStrideAtCompileTime = (int(Options) & int(RowMajor)) ? ColsAtCompileTime : RowsAtCompileTime,
 
     // FIXME, the following flag in only used to define NeedsToAlign in PlainObjectBase
     EvaluatorFlags = LinearAccessBit | DirectAccessBit | packet_access_bit | row_major_bit,
